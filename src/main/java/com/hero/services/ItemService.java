@@ -3,17 +3,22 @@ package com.hero.services;
 import com.hero.models.Item;
 import com.hero.models.ItemType;
 import com.hero.models.Rarity;
+import com.hero.repositories.ItemRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ItemService {
 
     private final List<Item> resultList;
 
-    public ItemService() {
+    private final ItemRepository itemRepository;
+
+    public ItemService(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
         resultList = new ArrayList<>();
         resultList.add(generateKingsHelmet());
         resultList.add(generatePrincesGloves());
@@ -21,23 +26,20 @@ public class ItemService {
     }
 
     public List<Item> getItems() {
-        return resultList;
+        return itemRepository.findAll();
     }
 
     public Item getById(long id) {
-        for (Item item : resultList) {
-            if(item.getId() == id) {
-                return item;
-            }
+        Optional<Item> itemOptional = itemRepository.findById(id);
+        if(itemOptional.isPresent()) {
+            return itemOptional.get();
         }
-        throw new RuntimeException("Value not found provided id:" + id);
+
+        throw new RuntimeException("Item with id:" + id + " does not exist!");
     }
 
     public Item create(Item model) {
-        long id = resultList.size() + 1;
-        model.setId(id);
-        resultList.add(model);
-        return model;
+        return itemRepository.save(model);
     }
 
     public Item update(Item model, long id) {

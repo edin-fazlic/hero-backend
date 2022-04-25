@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hero_db
+    username: postgres
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+    openInView: false
+    show_sql: true
+    generate-ddl: true
+  data:
+    jpa:
+      repositories.enabled: true
