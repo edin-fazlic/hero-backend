@@ -1,11 +1,11 @@
 server:
-  port: 8080
+  port: ${APLICATION_PORT:8080}
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/hero_db
-    username: postgres
-    password: admin
+    url: jdbc:postgresql://localhost:${APP_DB_PORT:5432}/hero_db
+    username: ${APP_DB_USERNAME}
+    password: ${APP_DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
@@ -15,3 +15,7 @@ spring:
   data:
     jpa:
       repositories.enabled: true
+
+service:
+  ui:
+    url: ${FRONTEND_API_URL:"http://localhost:4202"}

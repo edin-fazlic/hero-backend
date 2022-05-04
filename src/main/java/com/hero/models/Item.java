@@ -18,6 +18,10 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @ManyToOne
+    @JoinColumn(name = "hero", referencedColumnName = "id")
+    private Hero hero;
+
     @Column(name = "name")
     private String name;
 
