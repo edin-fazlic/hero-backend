@@ -31,4 +31,14 @@ public class ItemController {
         return itemService.create(item);
     }
 
+    @PutMapping("/{id}")
+    public Item editItem(@PathVariable long id, @RequestBody Item item) {
+        return itemService.update(item, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteItem(@PathVariable long id) {
+        itemService.delete(id);
+    }
+
 }

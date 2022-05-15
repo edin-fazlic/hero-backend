@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://${APP_DB_URL:localhost}:${APP_DB_PORT:5432}/${APP_DB_NAME:hero_db}
-    username: ${APP_DB_USERNAME}
-    password: ${APP_DB_PASSWORD}
+    username: ${APP_DB_USERNAME:postgres}
+    password: ${APP_DB_PASSWORD:admin}
   jpa:
     hibernate:
       ddl-auto: update
@@ -18,4 +18,4 @@ spring:
 
 service:
   ui:
-    url: ${FRONTEND_API_URL:"http://localhost:4200"}
+    url: ${FRONTEND_API_URL:http://localhost:4200}
